@@ -1,0 +1,11 @@
+D:\React\KanbanAPI\Domain\bin\Debug\net10.0\Domain.deps.json
+D:\React\KanbanAPI\Domain\bin\Debug\net10.0\Domain.dll
+D:\React\KanbanAPI\Domain\bin\Debug\net10.0\Domain.pdb
+D:\React\KanbanAPI\Domain\obj\Debug\net10.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\React\KanbanAPI\Domain\obj\Debug\net10.0\Domain.AssemblyInfoInputs.cache
+D:\React\KanbanAPI\Domain\obj\Debug\net10.0\Domain.AssemblyInfo.cs
+D:\React\KanbanAPI\Domain\obj\Debug\net10.0\Domain.csproj.CoreCompileInputs.cache
+D:\React\KanbanAPI\Domain\obj\Debug\net10.0\Domain.dll
+D:\React\KanbanAPI\Domain\obj\Debug\net10.0\refint\Domain.dll
+D:\React\KanbanAPI\Domain\obj\Debug\net10.0\Domain.pdb
+D:\React\KanbanAPI\Domain\obj\Debug\net10.0\ref\Domain.dll
