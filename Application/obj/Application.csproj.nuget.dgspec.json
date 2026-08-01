@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\React\\KanbanAPI\\Application\\Application.csproj": {}
+    "D:\\React\\Reactivities\\Application\\Application.csproj": {}
   },
   "projects": {
-    "D:\\React\\KanbanAPI\\Application\\Application.csproj": {
+    "D:\\React\\Reactivities\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\React\\KanbanAPI\\Application\\Application.csproj",
+        "projectUniqueName": "D:\\React\\Reactivities\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\React\\KanbanAPI\\Application\\Application.csproj",
+        "projectPath": "D:\\React\\Reactivities\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\React\\KanbanAPI\\Application\\obj\\",
+        "outputPath": "D:\\React\\Reactivities\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\VisualStudioSDK\\NuGetPackages"

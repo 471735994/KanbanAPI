@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/LMmoOaCIRw=",
+  "dgSpecHash": "c/hrvH+WsF4=",
   "success": true,
-  "projectFilePath": "D:\\React\\KanbanAPI\\Persistence\\Persistence.csproj",
+  "projectFilePath": "D:\\React\\Reactivities\\Persistence\\Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlite.core\\10.0.10\\microsoft.data.sqlite.core.10.0.10.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.10\\microsoft.entityframeworkcore.10.0.10.nupkg.sha512",

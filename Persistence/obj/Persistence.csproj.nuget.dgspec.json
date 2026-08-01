@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\React\\KanbanAPI\\Persistence\\Persistence.csproj": {}
+    "D:\\React\\Reactivities\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "D:\\React\\KanbanAPI\\Domain\\Domain.csproj": {
+    "D:\\React\\Reactivities\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\React\\KanbanAPI\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\React\\Reactivities\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\React\\KanbanAPI\\Domain\\Domain.csproj",
+        "projectPath": "D:\\React\\Reactivities\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\React\\KanbanAPI\\Domain\\obj\\",
+        "outputPath": "D:\\React\\Reactivities\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\VisualStudioSDK\\NuGetPackages"
@@ -346,14 +346,14 @@
         }
       }
     },
-    "D:\\React\\KanbanAPI\\Persistence\\Persistence.csproj": {
+    "D:\\React\\Reactivities\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\React\\KanbanAPI\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "D:\\React\\Reactivities\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "D:\\React\\KanbanAPI\\Persistence\\Persistence.csproj",
+        "projectPath": "D:\\React\\Reactivities\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\React\\KanbanAPI\\Persistence\\obj\\",
+        "outputPath": "D:\\React\\Reactivities\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\VisualStudioSDK\\NuGetPackages"
@@ -376,8 +376,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\React\\KanbanAPI\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\React\\KanbanAPI\\Domain\\Domain.csproj"
+              "D:\\React\\Reactivities\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\React\\Reactivities\\Domain\\Domain.csproj"
               }
             }
           }
