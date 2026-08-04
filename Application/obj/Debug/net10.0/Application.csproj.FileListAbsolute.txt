@@ -34,3 +34,9 @@ D:\React\Reactivities\Application\obj\Debug\net10.0\Application.dll
 D:\React\Reactivities\Application\obj\Debug\net10.0\refint\Application.dll
 D:\React\Reactivities\Application\obj\Debug\net10.0\Application.pdb
 D:\React\Reactivities\Application\obj\Debug\net10.0\ref\Application.dll
+D:\React\Reactivities\Application\bin\Debug\net10.0\Domain.dll
+D:\React\Reactivities\Application\bin\Debug\net10.0\Persistence.dll
+D:\React\Reactivities\Application\bin\Debug\net10.0\Domain.pdb
+D:\React\Reactivities\Application\bin\Debug\net10.0\Persistence.pdb
+D:\React\Reactivities\Application\obj\Debug\net10.0\Application.csproj.AssemblyReference.cache
+D:\React\Reactivities\Application\obj\Debug\net10.0\Applicat.44B5EDA2.Up2Date

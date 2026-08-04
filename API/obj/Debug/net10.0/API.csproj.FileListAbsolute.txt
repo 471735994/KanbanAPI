@@ -314,3 +314,9 @@ D:\React\Reactivities\API\obj\Debug\net10.0\refint\API.dll
 D:\React\Reactivities\API\obj\Debug\net10.0\API.pdb
 D:\React\Reactivities\API\obj\Debug\net10.0\API.genruntimeconfig.cache
 D:\React\Reactivities\API\obj\Debug\net10.0\ref\API.dll
+D:\React\Reactivities\API\bin\Debug\net10.0\MediatR.dll
+D:\React\Reactivities\API\bin\Debug\net10.0\MediatR.Contracts.dll
+D:\React\Reactivities\API\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+D:\React\Reactivities\API\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\React\Reactivities\API\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+D:\React\Reactivities\API\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
