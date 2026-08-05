@@ -1,4 +1,6 @@
+using Application.Activities.Commands;
 using Application.Activities.Queries;
+using Application.Activities.Queries.Commands;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,4 +23,19 @@ public class ActivitiesController : BaseApiController
             return NotFound();
         return activity;
     }
+    [HttpPost]
+    public async Task<ActionResult<string>> CreateActivity(Activity activity)
+    {
+        var command = new CreateActivity.Command { Activity = activity };
+        var activityId = await Mediator.Send(command);
+        return Ok(activityId);
+    }
+    [HttpPut]
+    public async Task<ActionResult> EditActivity(Activity activity)
+    {
+        var command = new EditActivity.Command { Activity = activity };
+        await Mediator.Send(command);
+        return NoContent();
+    }
+ 
 }

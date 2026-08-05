@@ -1,26 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/libo/Desktop/KanbanAPI/Domain/Domain.csproj": {}
+    "D:\\React\\Reactivities\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "/Users/libo/Desktop/KanbanAPI/Domain/Domain.csproj": {
+    "D:\\React\\Reactivities\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/libo/Desktop/KanbanAPI/Domain/Domain.csproj",
+        "projectUniqueName": "D:\\React\\Reactivities\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/Users/libo/Desktop/KanbanAPI/Domain/Domain.csproj",
-        "packagesPath": "/Users/libo/.nuget/packages/",
-        "outputPath": "/Users/libo/Desktop/KanbanAPI/Domain/obj/",
+        "projectPath": "D:\\React\\Reactivities\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\47173\\.nuget\\packages\\",
+        "outputPath": "D:\\React\\Reactivities\\Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/libo/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\47173\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -62,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.302/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
