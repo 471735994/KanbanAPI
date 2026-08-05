@@ -1273,31 +1273,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\47173\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/libo/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\React\\Reactivities\\Application\\Application.csproj",
+      "projectUniqueName": "/Users/libo/Desktop/KanbanAPI/Application/Application.csproj",
       "projectName": "Application",
-      "projectPath": "D:\\React\\Reactivities\\Application\\Application.csproj",
-      "packagesPath": "C:\\Users\\47173\\.nuget\\packages\\",
-      "outputPath": "D:\\React\\Reactivities\\Application\\obj\\",
+      "projectPath": "/Users/libo/Desktop/KanbanAPI/Application/Application.csproj",
+      "packagesPath": "/Users/libo/.nuget/packages/",
+      "outputPath": "/Users/libo/Desktop/KanbanAPI/Application/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\47173\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/libo/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1305,11 +1299,11 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "D:\\React\\Reactivities\\Domain\\Domain.csproj": {
-              "projectPath": "D:\\React\\Reactivities\\Domain\\Domain.csproj"
+            "/Users/libo/Desktop/KanbanAPI/Domain/Domain.csproj": {
+              "projectPath": "/Users/libo/Desktop/KanbanAPI/Domain/Domain.csproj"
             },
-            "D:\\React\\Reactivities\\Persistence\\Persistence.csproj": {
-              "projectPath": "D:\\React\\Reactivities\\Persistence\\Persistence.csproj"
+            "/Users/libo/Desktop/KanbanAPI/Persistence/Persistence.csproj": {
+              "projectPath": "/Users/libo/Desktop/KanbanAPI/Persistence/Persistence.csproj"
             }
           }
         }
@@ -1352,7 +1346,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.302/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
