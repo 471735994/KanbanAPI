@@ -482,3 +482,28 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# .NET build
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+
+# User files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Node
+node_modules/
+dist/
+
+# React
+.env
+.env.local
