@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vFcHUTGwbUs=",
+  "dgSpecHash": "3DmAqKKYaiU=",
   "success": true,
-  "projectFilePath": "D:\\React\\Reactivities\\API\\API.csproj",
+  "projectFilePath": "D:\\React\\Reactivities\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\47173\\.nuget\\packages\\automapper\\16.2.0\\automapper.16.2.0.nupkg.sha512",
     "C:\\Users\\47173\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -56,22 +56,10 @@
       "code": "NU1608",
       "level": "Warning",
       "message": "检测到的包版本在依赖项约束之外: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 需要 AutoMapper (= 12.0.1)，但版本 AutoMapper 16.2.0 已解决。",
-      "projectPath": "D:\\React\\Reactivities\\API\\API.csproj",
+      "projectPath": "D:\\React\\Reactivities\\api\\API.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\React\\Reactivities\\API\\API.csproj",
+      "filePath": "D:\\React\\Reactivities\\api\\API.csproj",
       "libraryId": "AutoMapper",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    },
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "message": "包 \"SQLitePCLRaw.lib.e_sqlite3\" 2.1.11 具有已知的 高 严重性漏洞，https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
-      "projectPath": "D:\\React\\Reactivities\\API\\API.csproj",
-      "warningLevel": 1,
-      "filePath": "D:\\React\\Reactivities\\API\\API.csproj",
-      "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
       "targetGraphs": [
         "net10.0"
       ]

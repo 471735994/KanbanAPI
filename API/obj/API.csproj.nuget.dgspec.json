@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\React\\Reactivities\\API\\API.csproj": {}
+    "D:\\React\\Reactivities\\api\\API.csproj": {}
   },
   "projects": {
-    "D:\\React\\Reactivities\\API\\API.csproj": {
+    "D:\\React\\Reactivities\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\React\\Reactivities\\API\\API.csproj",
+        "projectUniqueName": "D:\\React\\Reactivities\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\React\\Reactivities\\API\\API.csproj",
+        "projectPath": "D:\\React\\Reactivities\\api\\API.csproj",
         "packagesPath": "C:\\Users\\47173\\.nuget\\packages\\",
-        "outputPath": "D:\\React\\Reactivities\\API\\obj\\",
+        "outputPath": "D:\\React\\Reactivities\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
