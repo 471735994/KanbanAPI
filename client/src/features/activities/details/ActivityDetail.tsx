@@ -10,16 +10,14 @@ import {
   Divider,
   Stack,
 } from "@mui/material";
-import {
-  CalendarMonth,
-  LocationOn,
-  Edit,
-  Close,
-} from "@mui/icons-material";
+import { CalendarMonth, LocationOn, Edit, Close } from "@mui/icons-material";
 
-type Props = { activity: Activity };
+type Props = {
+  activity: Activity;
+  onCancelActivity: () => void;
+};
 
-export default function ActivityDetail({ activity }: Props) {
+export default function ActivityDetail({ activity, onCancelActivity }: Props) {
   return (
     <Card
       elevation={0}
@@ -73,8 +71,14 @@ export default function ActivityDetail({ activity }: Props) {
           </Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <CalendarMonth fontSize="small" sx={{ color: "rgba(255,255,255,0.9)" }} />
-              <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.9)" }}>
+              <CalendarMonth
+                fontSize="small"
+                sx={{ color: "rgba(255,255,255,0.9)" }}
+              />
+              <Typography
+                variant="body2"
+                sx={{ color: "rgba(255,255,255,0.9)" }}
+              >
                 {new Date(activity.date).toLocaleDateString("zh-CN", {
                   year: "numeric",
                   month: "long",
@@ -83,8 +87,14 @@ export default function ActivityDetail({ activity }: Props) {
               </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <LocationOn fontSize="small" sx={{ color: "rgba(255,255,255,0.9)" }} />
-              <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.9)" }}>
+              <LocationOn
+                fontSize="small"
+                sx={{ color: "rgba(255,255,255,0.9)" }}
+              />
+              <Typography
+                variant="body2"
+                sx={{ color: "rgba(255,255,255,0.9)" }}
+              >
                 {activity.city} / {activity.venue}
               </Typography>
             </Box>
@@ -123,7 +133,9 @@ export default function ActivityDetail({ activity }: Props) {
               borderColor: "grey.200",
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
+            <Box
+              sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}
+            >
               <CalendarMonth fontSize="small" color="primary" />
               <Typography variant="body2" sx={{ fontWeight: 600 }}>
                 日期
@@ -148,7 +160,9 @@ export default function ActivityDetail({ activity }: Props) {
               borderColor: "grey.200",
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}>
+            <Box
+              sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}
+            >
               <LocationOn fontSize="small" color="primary" />
               <Typography variant="body2" sx={{ fontWeight: 600 }}>
                 地点
@@ -172,10 +186,12 @@ export default function ActivityDetail({ activity }: Props) {
         }}
       >
         <Button
+          onClick={onCancelActivity}
           variant="outlined"
           color="inherit"
           startIcon={<Close />}
           sx={{ borderRadius: 2, textTransform: "none", fontWeight: 600 }}
+          
         >
           Cancel
         </Button>

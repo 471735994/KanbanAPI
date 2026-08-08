@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { CalendarMonth, LocationOn, Group } from "@mui/icons-material";
 
-type Props = { activity: Activity };
+type Props = { activity: Activity; onSelectActivity: (id: string) => void };
 
 const CATEGORY_COLORS: Record<string, string> = {
   drinks: "#f97316",
@@ -22,7 +22,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   film: "#6366f1",
 };
 
-export default function ActivityCard({ activity }: Props) {
+export default function ActivityCard({ activity, onSelectActivity }: Props) {
   const categoryColor =
     CATEGORY_COLORS[activity.category.toLowerCase()] ?? "#182a73";
 
@@ -75,7 +75,9 @@ export default function ActivityCard({ activity }: Props) {
           >
             {activity.title}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mt: 0.25 }}>
+          <Box
+            sx={{ display: "flex", alignItems: "center", gap: 0.5, mt: 0.25 }}
+          >
             <CalendarMonth fontSize="small" sx={{ color: "text.secondary" }} />
             <Typography variant="body2" color="text.secondary">
               {new Date(activity.date).toLocaleDateString("zh-CN", {
@@ -134,11 +136,16 @@ export default function ActivityCard({ activity }: Props) {
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Group fontSize="small" sx={{ color: "text.secondary" }} />
-          <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ fontWeight: 600 }}
+          >
             活动详情
           </Typography>
         </Box>
         <Button
+          onClick={() => onSelectActivity(activity.id)}
           size="small"
           variant="contained"
           disableElevation

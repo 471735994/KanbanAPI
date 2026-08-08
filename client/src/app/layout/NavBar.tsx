@@ -8,7 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function NavBar() {
+type Props = {
+  openForm: () => void;
+};
+
+export default function NavBar({ openForm }: Props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -81,6 +85,14 @@ export default function NavBar() {
               </Button>
               <Button size="large" variant="contained" color="primary">
                 Register
+              </Button>
+              <Button
+                size="large"
+                variant="contained"
+                color="primary"
+                onClick={openForm}
+              >
+                Create Activity
               </Button>
             </Box>
           </Toolbar>

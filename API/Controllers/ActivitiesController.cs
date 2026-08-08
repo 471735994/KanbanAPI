@@ -2,7 +2,6 @@ using Application.Activities.Commands;
 using Application.Activities.Queries;
 using Application.Activities.Queries.Commands;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KanbanAPI.Controllers;
