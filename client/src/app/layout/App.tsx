@@ -39,14 +39,18 @@ function App() {
     setEditMode(false);
   };
 
-  const handleSubmitActivity = (activity: Activity) => {
+  // 实现提交表单的逻辑
+  const handleSubmitForm = (activity: Activity) => {
     setActivities((prev) => {
       const exists = prev.some((x) => x.id === activity.id);
       if (exists) {
         return prev.map((x) => (x.id === activity.id ? activity : x));
       }
+      activity.id =activities.length.toString();
+      
       return [...prev, activity];
     });
+    setEditMode(false);
     setSelectedActivity(null);
   };
 
@@ -57,10 +61,10 @@ function App() {
       <Container maxWidth="xl" sx={{ mt: 3 }}>
         <ActivityDashboard
           activities={activities}
+          onSubmitForm={handleSubmitForm}
           selectedActivity={selectedActivity}
           onSelectActivity={handleSelectActivity}
           onCancelSelectActivity={handleCancelSelectActivity}
-          onSubmitActivity={handleSubmitActivity}
           editMode={editMode}
           openForm={handleOpenForm}
           closeForm={handleFormClose}

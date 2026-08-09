@@ -1,4 +1,12 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import {
+  AddCircleOutlined,
+  CalendarMonth,
+  CheckCircle,
+  Close,
+  EditNote,
+  LocationOn,
+  Place,
+} from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -11,100 +19,38 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {
-  AddCircleOutlined,
-  CalendarMonth,
-  Category as CategoryIcon,
-  CheckCircle,
-  Close,
-  EditNote,
-  LocationOn,
-  Notes,
-  Place,
-  Title as TitleIcon,
-} from "@mui/icons-material";
 
 type Props = {
   activity?: Activity | null;
-  onSubmit: (activity: Activity) => void;
-  closeForm:()=>void;
+  closeForm: () => void;
+  openForm: () => void;
+  onSubmitForm: (activity: Activity) => void;
 };
 
-const emptyActivity: Activity = {
-  id: "",
-  title: "",
-  date: "",
-  description: "",
-  category: "",
-  isCancelled: false,
-  city: "",
-  venue: "",
-  latitude: 0,
-  longitude: 0,
-};
+export default function ActivityForm({
+  activity,
+  closeForm,
+  onSubmitForm,
+}: Props) {
+  const isEditing = false;
 
-const requiredFields = [
-  "title",
-  "description",
-  "category",
-  "date",
-  "city",
-  "venue",
-] as const;
-
-type FormErrors = Partial<
-  Record<(typeof requiredFields)[number], string>
->;
-
-export default function ActivityForm({ activity, onSubmit, closeForm }: Props) {
-  const [form, setForm] = useState<Activity>(() =>
-    activity ? { ...activity } : { ...emptyActivity },
-  );
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [prevActivity, setPrevActivity] = useState(activity);
-
-  // 当传入的 activity 变化时（例如切换到编辑另一条记录）重置表单状态。
-  // 在渲染期间调整 state 是 React 官方推荐的做法，可避免额外的级联渲染。
-  if (activity !== prevActivity) {
-    setPrevActivity(activity);
-    setForm(activity ? { ...activity } : { ...emptyActivity });
-    setErrors({});
-  }
-
-  const isEditing = Boolean(activity?.id);
-
-  const handleChange =
-    (field: keyof Activity) =>
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const value = event.target.value;
-      setForm((prev) => ({ ...prev, [field]: value }));
-      if ((requiredFields as readonly string[]).includes(field)) {
-        setErrors((prev) => {
-          const key = field as (typeof requiredFields)[number];
-          if (!prev[key]) return prev;
-          const next = { ...prev };
-          delete next[key];
-          return next;
-        });
-      }
-    };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newErrors: FormErrors = {};
-    for (const field of requiredFields) {
-      if (!form[field].trim()) {
-        newErrors[field] = "This field is required";
-      }
+    const formData = new FormData(event.currentTarget);
+    const data: { [key: string]: FormDataEntryValue } = {};
+
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+    if (activity) {
+      data.id = activity.id;
     }
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
-    onSubmit(form);
+
+    onSubmitForm(data as unknown as Activity);
   };
 
   return (
     <Paper elevation={3} sx={{ borderRadius: 4, overflow: "hidden" }}>
-     
       <Box sx={{ p: { xs: 3, md: 4 } }}>
         <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
           <Avatar
@@ -131,23 +77,18 @@ export default function ActivityForm({ activity, onSubmit, closeForm }: Props) {
 
         <Divider sx={{ my: 3 }} />
 
-        <Box component="form" onSubmit={handleSubmit} noValidate>
+        <Box component="form" noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2.5}>
             <Grid size={12}>
               <TextField
+                name="title"
                 fullWidth
                 label="Title"
                 placeholder="e.g. Mountain Hiking Trip"
-                value={form.title}
-                onChange={handleChange("title")}
-                error={Boolean(errors.title)}
-                helperText={errors.title ?? " "}
                 slotProps={{
                   input: {
                     startAdornment: (
-                      <InputAdornment position="start">
-                        <TitleIcon color="action" />
-                      </InputAdornment>
+                      <InputAdornment position="start"></InputAdornment>
                     ),
                   },
                 }}
@@ -157,23 +98,18 @@ export default function ActivityForm({ activity, onSubmit, closeForm }: Props) {
             <Grid size={12}>
               <TextField
                 fullWidth
+                name="description"
                 label="Description"
                 placeholder="Tell us more about this activity..."
                 multiline
                 rows={4}
-                value={form.description}
-                onChange={handleChange("description")}
-                error={Boolean(errors.description)}
-                helperText={errors.description ?? " "}
                 slotProps={{
                   input: {
                     startAdornment: (
                       <InputAdornment
                         position="start"
                         sx={{ mt: -2.5, alignSelf: "flex-start" }}
-                      >
-                        <Notes color="action" />
-                      </InputAdornment>
+                      ></InputAdornment>
                     ),
                   },
                 }}
@@ -183,18 +119,13 @@ export default function ActivityForm({ activity, onSubmit, closeForm }: Props) {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
+                name="category"
                 label="Category"
                 placeholder="e.g. Music, Sports"
-                value={form.category}
-                onChange={handleChange("category")}
-                error={Boolean(errors.category)}
-                helperText={errors.category ?? " "}
                 slotProps={{
                   input: {
                     startAdornment: (
-                      <InputAdornment position="start">
-                        <CategoryIcon color="action" />
-                      </InputAdornment>
+                      <InputAdornment position="start"></InputAdornment>
                     ),
                   },
                 }}
@@ -204,12 +135,9 @@ export default function ActivityForm({ activity, onSubmit, closeForm }: Props) {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
+                name="date"
                 label="Date"
-                type="datetime-local"
-                value={form.date}
-                onChange={handleChange("date")}
-                error={Boolean(errors.date)}
-                helperText={errors.date ?? " "}
+                type="date"
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -225,12 +153,9 @@ export default function ActivityForm({ activity, onSubmit, closeForm }: Props) {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
+                name="city"
                 label="City"
                 placeholder="e.g. Beijing"
-                value={form.city}
-                onChange={handleChange("city")}
-                error={Boolean(errors.city)}
-                helperText={errors.city ?? " "}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -246,12 +171,9 @@ export default function ActivityForm({ activity, onSubmit, closeForm }: Props) {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
+                name="venue"
                 label="Venue"
                 placeholder="e.g. Olympic Park"
-                value={form.venue}
-                onChange={handleChange("venue")}
-                error={Boolean(errors.venue)}
-                helperText={errors.venue ?? " "}
                 slotProps={{
                   input: {
                     startAdornment: (
