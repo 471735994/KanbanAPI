@@ -1,0 +1,33 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import agent from "../api/agent";
+
+export const useActivities = () => {
+  //react query客户端实例，通过它可以在后续操作中让某个缓存失效，从而触发重新请求数据。
+  const queryClient = useQueryClient();
+
+  // 获取活动列表，data: activities 将查询结果重命名为 activities。
+  // 查询键为 ["activities"]，isPending 表示查询是否仍在进行中（加载状态）
+  const { data: activities, isPending } = useQuery({
+    queryKey: ["activities"],
+    queryFn: async () => {
+      const response = await agent.get<Activity[]>("/activities");
+      return response.data;
+    },
+  });
+
+  // 更新活动，useMutation 创建了一个变更操作，负责发送更新请求。
+  const updateActivity = useMutation({
+    mutationFn: async (activity: Activity) => {
+      await agent.put("/activities", activity);
+    },
+    onSuccess: async () => {
+      //将活动列表缓存标记为过期。
+      await queryClient.invalidateQueries({
+        queryKey: ["activities"],
+      });
+    },
+  });
+
+  // 返回活动信息
+  return { activities, isPending, updateActivity };
+};

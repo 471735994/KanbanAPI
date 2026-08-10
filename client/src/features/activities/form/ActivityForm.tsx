@@ -32,7 +32,9 @@ export default function ActivityForm({
   closeForm,
   onSubmitForm,
 }: Props) {
-  const isEditing = false;
+  // 
+  const isEditing=false;
+  
 
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
