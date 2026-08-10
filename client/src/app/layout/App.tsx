@@ -46,18 +46,22 @@ function App() {
       if (exists) {
         return prev.map((x) => (x.id === activity.id ? activity : x));
       }
-      activity.id =activities.length.toString();
-      
+      activity.id = activities.length.toString();
+      setSelectedActivity(activity); // 更新选中的活动
       return [...prev, activity];
     });
     setEditMode(false);
     setSelectedActivity(null);
   };
 
+  const handleDeleteActivity = (id: string) => {
+    setActivities((prev) => prev.filter((x) => x.id !== id)); // 删除活动
+  };
+
   return (
     <Box sx={{ bgcolor: "#eeeeee" }}>
       <CssBaseline />
-      <NavBar openForm={handleOpenForm}/>
+      <NavBar openForm={handleOpenForm} />
       <Container maxWidth="xl" sx={{ mt: 3 }}>
         <ActivityDashboard
           activities={activities}
@@ -68,6 +72,7 @@ function App() {
           editMode={editMode}
           openForm={handleOpenForm}
           closeForm={handleFormClose}
+          onDeleteActivity={handleDeleteActivity}
         />
       </Container>
     </Box>

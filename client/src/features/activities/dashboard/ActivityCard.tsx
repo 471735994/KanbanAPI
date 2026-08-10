@@ -11,7 +11,11 @@ import {
 } from "@mui/material";
 import { CalendarMonth, LocationOn, Group } from "@mui/icons-material";
 
-type Props = { activity: Activity; onSelectActivity: (id: string) => void };
+type Props = {
+  activity: Activity;
+  onSelectActivity: (id: string) => void;
+  onDeleteActivity: (id: string) => void;
+};
 
 const CATEGORY_COLORS: Record<string, string> = {
   drinks: "#f97316",
@@ -22,7 +26,11 @@ const CATEGORY_COLORS: Record<string, string> = {
   film: "#6366f1",
 };
 
-export default function ActivityCard({ activity, onSelectActivity }: Props) {
+export default function ActivityCard({
+  activity,
+  onSelectActivity,
+  onDeleteActivity,
+}: Props) {
   const categoryColor =
     CATEGORY_COLORS[activity.category.toLowerCase()] ?? "#182a73";
 
@@ -144,22 +152,40 @@ export default function ActivityCard({ activity, onSelectActivity }: Props) {
             活动详情
           </Typography>
         </Box>
-        <Button
-          onClick={() => onSelectActivity(activity.id)}
-          size="small"
-          variant="contained"
-          disableElevation
-          sx={{
-            borderRadius: 2,
-            px: 2.5,
-            textTransform: "none",
-            fontWeight: 600,
-            backgroundImage:
-              "linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7a0 100%)",
-          }}
-        >
-          View
-        </Button>
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <Button
+            size="small"
+            variant="contained"
+            disableElevation
+            onClick={() => onDeleteActivity(activity.id)}
+            sx={{
+              borderRadius: 2,
+              px: 2.5,
+              textTransform: "none",
+              fontWeight: 600,
+              backgroundImage:
+                "linear-gradient(135deg, #ed944b 0%, #ea540e 69%, #f20a06 100%)",
+            }}
+          >
+            Delete
+          </Button>
+          <Button
+            onClick={() => onSelectActivity(activity.id)}
+            size="small"
+            variant="contained"
+            disableElevation
+            sx={{
+              borderRadius: 2,
+              px: 2.5,
+              textTransform: "none",
+              fontWeight: 600,
+              backgroundImage:
+                "linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7a0 100%)",
+            }}
+          >
+            View
+          </Button>
+        </Box>
       </CardActions>
     </Card>
   );
