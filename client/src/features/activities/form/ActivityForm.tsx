@@ -32,22 +32,22 @@ export default function ActivityForm({
   closeForm,
   onSubmitForm,
 }: Props) {
-  // 
-  const isEditing=false;
-  
+  // 编辑模式：有 activity 即为编辑表单
+  const isEditing = activity ? true : false;
 
+  // 提交表单
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const data: { [key: string]: FormDataEntryValue } = {};
-
+    event.preventDefault(); // 阻止表单默认提交行为
+    const formData = new FormData(event.currentTarget); // 获取表单数据
+    const data: { [key: string]: FormDataEntryValue } = {}; // 存储表单数据
+    // 遍历表单数据
     formData.forEach((value, key) => {
       data[key] = value;
     });
     if (activity) {
       data.id = activity.id;
     }
-
+    // 提交表单
     onSubmitForm(data as unknown as Activity);
   };
 

@@ -5,25 +5,19 @@ import ActivityDashboard from "../../features/activities/dashboard/ActivityDashb
 import { useActivities } from "../../lib/hooks/useActivities";
 
 function App() {
-  // const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
     null,
   );
+  // 使用useState来管理编辑模式
   const [editMode, setEditMode] = useState(false);
-  const {activities, isPending} = useActivities();
 
-  // useEffect(() => {
-  //   axios
-  //     .get<Activity[]>("https://localhost:5001/api/activities")
-  //     .then((response) => setActivities(response.data));
-
-  //   return () => {};
-  // }, []);
-
-  // 使用React Query
+  // 获取活动列表,使用自定义hooks来获取活动列表
+  const { activities, isPending } = useActivities();
 
   const handleSelectActivity = (id: string) => {
     setSelectedActivity(activities!.find((x) => x.id === id) || null);
+    // 点击 View 时退出编辑模式，进入查看模式
+    setEditMode(false);
   };
 
   const handleCancelSelectActivity = () => {

@@ -15,7 +15,7 @@ export const useActivities = () => {
     },
   });
 
-  // 更新活动，useMutation 创建了一个变更操作，负责发送更新请求。
+  //更新活动，useMutation 创建了一个变更操作，负责发送更新请求。
   const updateActivity = useMutation({
     mutationFn: async (activity: Activity) => {
       await agent.put("/activities", activity);

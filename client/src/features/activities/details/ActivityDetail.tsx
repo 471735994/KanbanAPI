@@ -15,9 +15,14 @@ import { CalendarMonth, LocationOn, Edit, Close } from "@mui/icons-material";
 type Props = {
   activity: Activity;
   onCancelActivity: () => void;
+  onEditActivity: () => void;
 };
 
-export default function ActivityDetail({ activity, onCancelActivity }: Props) {
+export default function ActivityDetail({
+  activity,
+  onCancelActivity,
+  onEditActivity,
+}: Props) {
   return (
     <Card
       elevation={0}
@@ -191,11 +196,11 @@ export default function ActivityDetail({ activity, onCancelActivity }: Props) {
           color="inherit"
           startIcon={<Close />}
           sx={{ borderRadius: 2, textTransform: "none", fontWeight: 600 }}
-          
         >
           Cancel
         </Button>
         <Button
+          onClick={onEditActivity}
           variant="contained"
           disableElevation
           startIcon={<Edit />}
