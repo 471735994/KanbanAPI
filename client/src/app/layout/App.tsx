@@ -14,6 +14,7 @@ function App() {
   // 获取活动列表,使用自定义hooks来获取活动列表
   const { activities, isPending } = useActivities();
 
+  // 实现点击活动列表项的逻辑
   const handleSelectActivity = (id: string) => {
     setSelectedActivity(activities!.find((x) => x.id === id) || null);
     // 点击 View 时退出编辑模式，进入查看模式
@@ -36,21 +37,10 @@ function App() {
     setEditMode(false);
   };
 
-  // 实现提交表单的逻辑
-  const handleSubmitForm = (activity: Activity) => {
-    // setActivities((prev) => {
-    //   const exists = prev.some((x) => x.id === activity.id);
-    //   if (exists) {
-    //     return prev.map((x) => (x.id === activity.id ? activity : x));
-    //   }
-    //   activity.id = activities.length.toString();
-    //   setSelectedActivity(activity); // 更新选中的活动
-    //   return [...prev, activity];
-    // });
-    console.log(activity);
-    setEditMode(false);
-    setSelectedActivity(null);
-  };
+  // 实现编辑表单的逻辑
+
+
+  
 
   const handleDeleteActivity = (id: string) => {
     // setActivities((prev) => prev.filter((x) => x.id !== id)); // 删除活动
@@ -67,7 +57,6 @@ function App() {
         ) : (
           <ActivityDashboard
             activities={activities}
-            onSubmitForm={handleSubmitForm}
             selectedActivity={selectedActivity}
             onSelectActivity={handleSelectActivity}
             onCancelSelectActivity={handleCancelSelectActivity}

@@ -11,7 +11,9 @@ namespace Application.Core
     {
         public MappingProfiles()
         {
-            CreateMap<Activity, Activity>();
+            // 更新活动时忽略 Id，避免源对象的 Id 覆盖数据库主键
+            CreateMap<Activity, Activity>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
     }
 }

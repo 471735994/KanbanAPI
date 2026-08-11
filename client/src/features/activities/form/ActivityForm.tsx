@@ -19,24 +19,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useActivities } from "../../../lib/hooks/useActivities";
 
 type Props = {
   activity?: Activity | null;
   closeForm: () => void;
   openForm: () => void;
-  onSubmitForm: (activity: Activity) => void;
 };
 
-export default function ActivityForm({
-  activity,
-  closeForm,
-  onSubmitForm,
-}: Props) {
+export default function ActivityForm({ activity, closeForm }: Props) {
   // 编辑模式：有 activity 即为编辑表单
   const isEditing = activity ? true : false;
 
+  // 使用活动更新 hook，以便提交表单时更新
+  const { updateActivity } = useActivities();
+
   // 提交表单
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault(); // 阻止表单默认提交行为
     const formData = new FormData(event.currentTarget); // 获取表单数据
     const data: { [key: string]: FormDataEntryValue } = {}; // 存储表单数据
@@ -46,10 +45,11 @@ export default function ActivityForm({
     });
     if (activity) {
       data.id = activity.id;
+      await updateActivity.mutateAsync(data as unknown as Activity); // 提交表单数据
+      closeForm(); // 关闭表单
+      return;
     }
-    // 提交表单
-    onSubmitForm(data as unknown as Activity);
-  };
+  }
 
   return (
     <Paper elevation={3} sx={{ borderRadius: 4, overflow: "hidden" }}>
@@ -87,6 +87,7 @@ export default function ActivityForm({
                 fullWidth
                 label="Title"
                 placeholder="e.g. Mountain Hiking Trip"
+                defaultValue={activity?.title}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -94,7 +95,7 @@ export default function ActivityForm({
                     ),
                   },
                 }}
-              />
+              ></TextField>
             </Grid>
 
             <Grid size={12}>
@@ -103,6 +104,7 @@ export default function ActivityForm({
                 name="description"
                 label="Description"
                 placeholder="Tell us more about this activity..."
+                defaultValue={activity?.description}
                 multiline
                 rows={4}
                 slotProps={{
@@ -124,6 +126,7 @@ export default function ActivityForm({
                 name="category"
                 label="Category"
                 placeholder="e.g. Music, Sports"
+                defaultValue={activity?.category}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -140,6 +143,10 @@ export default function ActivityForm({
                 name="date"
                 label="Date"
                 type="date"
+                defaultValue={activity?.date
+                  ?new Date(activity.date).toISOString().split('T')[0]
+                  :new Date().toISOString().split('T')[0]
+                }
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -158,6 +165,7 @@ export default function ActivityForm({
                 name="city"
                 label="City"
                 placeholder="e.g. Beijing"
+                defaultValue={activity?.city}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -176,6 +184,7 @@ export default function ActivityForm({
                 name="venue"
                 label="Venue"
                 placeholder="e.g. Olympic Park"
+                defaultValue={activity?.venue}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -208,6 +217,7 @@ export default function ActivityForm({
               type="submit"
               variant="contained"
               color="success"
+              disabled={updateActivity.isPending}
               startIcon={<CheckCircle />}
             >
               Submit

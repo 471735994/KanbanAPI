@@ -11,18 +11,24 @@ import {
   Stack,
 } from "@mui/material";
 import { CalendarMonth, LocationOn, Edit, Close } from "@mui/icons-material";
+import { useActivities } from "../../../lib/hooks/useActivities";
 
 type Props = {
-  activity: Activity;
+  selectedActivity: Activity;
   onCancelActivity: () => void;
   onEditActivity: () => void;
 };
 
 export default function ActivityDetail({
-  activity,
+  selectedActivity,
   onCancelActivity,
   onEditActivity,
 }: Props) {
+  // 获取活动列表
+  const { activities } = useActivities();
+  const activity = activities?.find((x) => x.id === selectedActivity.id);
+  if(!activity) return <Typography>Loading...</Typography>
+
   return (
     <Card
       elevation={0}
