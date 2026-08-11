@@ -10,11 +10,11 @@ import {
   Divider,
 } from "@mui/material";
 import { CalendarMonth, LocationOn, Group } from "@mui/icons-material";
+import { useActivities } from "../../../lib/hooks/useActivities";
 
 type Props = {
   activity: Activity;
   onSelectActivity: (id: string) => void;
-  onDeleteActivity: (id: string) => void;
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -26,13 +26,11 @@ const CATEGORY_COLORS: Record<string, string> = {
   film: "#6366f1",
 };
 
-export default function ActivityCard({
-  activity,
-  onSelectActivity,
-  onDeleteActivity,
-}: Props) {
+export default function ActivityCard({ activity, onSelectActivity }: Props) {
   const categoryColor =
     CATEGORY_COLORS[activity.category.toLowerCase()] ?? "#182a73";
+
+  const { deleteActivity } = useActivities();
 
   return (
     <Card
@@ -157,7 +155,8 @@ export default function ActivityCard({
             size="small"
             variant="contained"
             disableElevation
-            onClick={() => onDeleteActivity(activity.id)}
+            disabled={deleteActivity.isPending}
+            onClick={() => deleteActivity.mutate(activity.id)}
             sx={{
               borderRadius: 2,
               px: 2.5,

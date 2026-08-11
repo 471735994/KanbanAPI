@@ -32,7 +32,7 @@ export default function ActivityForm({ activity, closeForm }: Props) {
   const isEditing = activity ? true : false;
 
   // 使用活动更新 hook，以便提交表单时更新
-  const { updateActivity } = useActivities();
+  const { updateActivity, createActivity } = useActivities();
 
   // 提交表单
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
@@ -46,10 +46,13 @@ export default function ActivityForm({ activity, closeForm }: Props) {
     if (activity) {
       data.id = activity.id;
       await updateActivity.mutateAsync(data as unknown as Activity); // 提交表单数据
-      closeForm(); // 关闭表单
-      return;
+    } else {
+      await createActivity.mutateAsync(data as unknown as Activity);
     }
-  }
+
+    closeForm(); // 关闭表单
+    return;
+  };
 
   return (
     <Paper elevation={3} sx={{ borderRadius: 4, overflow: "hidden" }}>
@@ -143,9 +146,10 @@ export default function ActivityForm({ activity, closeForm }: Props) {
                 name="date"
                 label="Date"
                 type="date"
-                defaultValue={activity?.date
-                  ?new Date(activity.date).toISOString().split('T')[0]
-                  :new Date().toISOString().split('T')[0]
+                defaultValue={
+                  activity?.date
+                    ? new Date(activity.date).toISOString().split("T")[0]
+                    : new Date().toISOString().split("T")[0]
                 }
                 slotProps={{
                   input: {
@@ -217,7 +221,7 @@ export default function ActivityForm({ activity, closeForm }: Props) {
               type="submit"
               variant="contained"
               color="success"
-              disabled={updateActivity.isPending}
+              disabled={updateActivity.isPending || createActivity.isPending}
               startIcon={<CheckCircle />}
             >
               Submit

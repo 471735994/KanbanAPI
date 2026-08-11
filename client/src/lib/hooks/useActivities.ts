@@ -28,6 +28,37 @@ export const useActivities = () => {
     },
   });
 
+  // 创建活动
+  const createActivity = useMutation({
+    mutationFn: async (activity: Activity) => {
+      await agent.post("/activities", activity);
+    },
+    onSuccess: async () => {
+      //将活动列表缓存标记为过期。
+      await queryClient.invalidateQueries({
+        queryKey: ["activities"],
+      });
+    },
+  });
+
+  const deleteActivity = useMutation({
+    mutationFn: async (id: string) => {
+      await agent.delete(`/activities/${id}`);
+    },
+    onSuccess: async () => {
+      //将活动列表缓存标记为过期。
+      await queryClient.invalidateQueries({
+        queryKey: ["activities"],
+      });
+    },
+  });
+
   // 返回活动信息
-  return { activities, isPending, updateActivity };
+  return {
+    activities,
+    isPending,
+    updateActivity,
+    createActivity,
+    deleteActivity,
+  };
 };
