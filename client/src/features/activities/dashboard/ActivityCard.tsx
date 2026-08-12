@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import { CalendarMonth, LocationOn, Group } from "@mui/icons-material";
 import { useActivities } from "../../../lib/hooks/useActivities";
+import { Link } from "react-router";
 
 type Props = {
   activity: Activity;
-  onSelectActivity: (id: string) => void;
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -26,7 +26,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   film: "#6366f1",
 };
 
-export default function ActivityCard({ activity, onSelectActivity }: Props) {
+export default function ActivityCard({ activity }: Props) {
   const categoryColor =
     CATEGORY_COLORS[activity.category.toLowerCase()] ?? "#182a73";
 
@@ -169,7 +169,8 @@ export default function ActivityCard({ activity, onSelectActivity }: Props) {
             Delete
           </Button>
           <Button
-            onClick={() => onSelectActivity(activity.id)}
+            component={Link}
+            to={`/activities/${activity.id}`}
             size="small"
             variant="contained"
             disableElevation

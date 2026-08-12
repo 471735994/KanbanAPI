@@ -4,15 +4,14 @@ import {
   Box,
   Button,
   Container,
+  MenuList,
   Toolbar,
   Typography,
 } from "@mui/material";
+import { NavLink } from "react-router";
+import MenuItemLink from "../shared/components/MenuItemLink";
 
-type Props = {
-  openForm: () => void;
-};
-
-export default function NavBar({ openForm }: Props) {
+export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -30,13 +29,24 @@ export default function NavBar({ openForm }: Props) {
               px: { xs: 2, sm: 3 },
             }}
           >
-            <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+            <Box
+              component={NavLink}
+              to="/"
+              sx={{
+                display: "flex",
+                gap: 2,
+                alignItems: "center",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
               <Group fontSize="large" />
               <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                 Reactivities
               </Typography>
             </Box>
-            <Box
+
+            <MenuList
               sx={{
                 display: "flex",
                 gap: 3,
@@ -45,40 +55,9 @@ export default function NavBar({ openForm }: Props) {
                 justifyContent: "center",
               }}
             >
-              <Box
-                sx={{
-                  fontSize: "1.2rem",
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  "&:hover": { opacity: 0.8 },
-                }}
-              >
-                Activites
-              </Box>
-              <Box
-                sx={{
-                  fontSize: "1.2rem",
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  "&:hover": { opacity: 0.8 },
-                }}
-              >
-                About
-              </Box>
-              <Box
-                sx={{
-                  fontSize: "1.2rem",
-                  textTransform: "uppercase",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                  "&:hover": { opacity: 0.8 },
-                }}
-              >
-                Contact
-              </Box>
-            </Box>
+              <MenuItemLink to="/activities">Activites</MenuItemLink>
+              <MenuItemLink to="/createActivity">Create Activity</MenuItemLink>
+            </MenuList>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
               <Button size="large" variant="contained" color="warning">
                 Login
@@ -90,9 +69,9 @@ export default function NavBar({ openForm }: Props) {
                 size="large"
                 variant="contained"
                 color="primary"
-                onClick={openForm}
+                onClick={() => {}}
               >
-                Create Activity
+                User Menu
               </Button>
             </Box>
           </Toolbar>

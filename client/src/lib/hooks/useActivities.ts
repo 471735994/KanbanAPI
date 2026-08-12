@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
 
-export const useActivities = () => {
+export const useActivities = (id?: string) => {
   //react query客户端实例，通过它可以在后续操作中让某个缓存失效，从而触发重新请求数据。
   const queryClient = useQueryClient();
 
@@ -13,6 +13,16 @@ export const useActivities = () => {
       const response = await agent.get<Activity[]>("/activities");
       return response.data;
     },
+  });
+
+  //查询单个活动, id 作为查询键的一部分。
+  const { data: activity, isLoading: isLoadingActivity } = useQuery({
+    queryKey: [activities, id],
+    queryFn: async () => {
+      const response = await agent.get<Activity>(`/activities/${id}`);
+      return response.data;
+    },
+    enabled: !!id,
   });
 
   //更新活动，useMutation 创建了一个变更操作，负责发送更新请求。
@@ -31,7 +41,8 @@ export const useActivities = () => {
   // 创建活动
   const createActivity = useMutation({
     mutationFn: async (activity: Activity) => {
-      await agent.post("/activities", activity);
+      const response = await agent.post("/activities", activity);
+      return response.data;
     },
     onSuccess: async () => {
       //将活动列表缓存标记为过期。
@@ -60,5 +71,7 @@ export const useActivities = () => {
     updateActivity,
     createActivity,
     deleteActivity,
+    activity,
+    isLoadingActivity,
   };
 };

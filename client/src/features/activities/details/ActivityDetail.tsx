@@ -11,23 +11,15 @@ import {
   Stack,
 } from "@mui/material";
 import { CalendarMonth, LocationOn, Edit, Close } from "@mui/icons-material";
+import { Link, useNavigate, useParams } from "react-router";
 import { useActivities } from "../../../lib/hooks/useActivities";
 
-type Props = {
-  selectedActivity: Activity;
-  onCancelActivity: () => void;
-  onEditActivity: () => void;
-};
-
-export default function ActivityDetail({
-  selectedActivity,
-  onCancelActivity,
-  onEditActivity,
-}: Props) {
-  // 获取活动列表
-  const { activities } = useActivities();
-  const activity = activities?.find((x) => x.id === selectedActivity.id);
-  if(!activity) return <Typography>Loading...</Typography>
+export default function ActivityDetail() {
+  const navigate = useNavigate(); // 使用useNavigate跳转
+  const { id } = useParams(); // 获取路由参数
+  const { activity, isLoadingActivity } = useActivities(id); // 获取活动详情
+  if (isLoadingActivity) return <Typography>Loading...</Typography>;
+  if (!activity) return <Typography>Activity not found</Typography>;
 
   return (
     <Card
@@ -197,16 +189,8 @@ export default function ActivityDetail({
         }}
       >
         <Button
-          onClick={onCancelActivity}
-          variant="outlined"
-          color="inherit"
-          startIcon={<Close />}
-          sx={{ borderRadius: 2, textTransform: "none", fontWeight: 600 }}
-        >
-          Cancel
-        </Button>
-        <Button
-          onClick={onEditActivity}
+          component={Link}
+          to={`/manage/${activity.id}`}
           variant="contained"
           disableElevation
           startIcon={<Edit />}
@@ -220,6 +204,15 @@ export default function ActivityDetail({
           }}
         >
           Edit
+        </Button>
+        <Button
+          onClick={() => navigate("/activities")}
+          variant="outlined"
+          color="inherit"
+          startIcon={<Close />}
+          sx={{ borderRadius: 2, textTransform: "none", fontWeight: 600 }}
+        >
+          Cancel
         </Button>
       </CardActions>
     </Card>

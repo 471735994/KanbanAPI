@@ -20,20 +20,18 @@ import {
   Typography,
 } from "@mui/material";
 import { useActivities } from "../../../lib/hooks/useActivities";
+import { useNavigate, useParams } from "react-router";
 
-type Props = {
-  activity?: Activity | null;
-  closeForm: () => void;
-  openForm: () => void;
-};
+export default function ActivityForm() {
+  const navigate = useNavigate();
 
-export default function ActivityForm({ activity, closeForm }: Props) {
-  // 编辑模式：有 activity 即为编辑表单
+  const { id } = useParams();
+  const { updateActivity, createActivity, activity, isLoadingActivity } =
+    useActivities(id);
+
+  if (isLoadingActivity) return <Typography>Loading...</Typography>;
+
   const isEditing = activity ? true : false;
-
-  // 使用活动更新 hook，以便提交表单时更新
-  const { updateActivity, createActivity } = useActivities();
-
   // 提交表单
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault(); // 阻止表单默认提交行为
@@ -46,12 +44,14 @@ export default function ActivityForm({ activity, closeForm }: Props) {
     if (activity) {
       data.id = activity.id;
       await updateActivity.mutateAsync(data as unknown as Activity); // 提交表单数据
+      navigate(`/activities/${activity.id}`);
     } else {
-      await createActivity.mutateAsync(data as unknown as Activity);
+      await createActivity.mutateAsync(data as unknown as Activity, {
+        onSuccess: (id: string) => {
+          navigate(`/activities/${id}`);
+        },
+      });
     }
-
-    closeForm(); // 关闭表单
-    return;
   };
 
   return (
@@ -210,10 +210,10 @@ export default function ActivityForm({ activity, closeForm }: Props) {
             sx={{ justifyContent: "flex-end" }}
           >
             <Button
+              onClick={() => navigate("/activities")}
               variant="outlined"
               color="inherit"
               startIcon={<Close />}
-              onClick={closeForm}
             >
               Cancel
             </Button>
