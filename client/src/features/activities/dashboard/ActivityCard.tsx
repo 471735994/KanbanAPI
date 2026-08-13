@@ -30,7 +30,13 @@ export default function ActivityCard({ activity }: Props) {
   const categoryColor =
     CATEGORY_COLORS[activity.category.toLowerCase()] ?? "#182a73";
 
-  const { deleteActivity } = useActivities();
+  const { deleteActivity } = useActivities(); // 删除活动
+
+  const isHost = false; // 是否为主办方
+  const isGoing = false; // 是否参加
+  const lable = isHost ? "You are hosting" : "You are going"; // 标签
+  const isCancelled = false; // 是否取消
+  const color = isHost ? "secondary" : isGoing ? "warning" : "default"; // 标签颜色
 
   return (
     <Card
@@ -81,6 +87,33 @@ export default function ActivityCard({ activity }: Props) {
           >
             {activity.title}
           </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              fontWeight: "semiBold",
+              fontSize: 14,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            Hosted by <Link to={`/profiles/bob`}>Bob</Link>
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              marginRight: 2,
+            }}
+          >
+            {(isHost || isGoing) && (
+              <Chip label={lable} color={color} size="small" />
+            )}
+            {isCancelled && (
+              <Chip label="Cancelled" color="error" size="small" />
+            )}
+          </Box>
           <Box
             sx={{ display: "flex", alignItems: "center", gap: 0.5, mt: 0.25 }}
           >

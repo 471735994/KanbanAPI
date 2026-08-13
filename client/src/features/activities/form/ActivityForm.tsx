@@ -23,6 +23,8 @@ import { useActivities } from "../../../lib/hooks/useActivities";
 import { useNavigate, useParams } from "react-router";
 
 export default function ActivityForm() {
+  
+
   const navigate = useNavigate();
 
   const { id } = useParams();
