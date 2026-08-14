@@ -9,9 +9,10 @@ import {
   Avatar,
   Divider,
 } from "@mui/material";
-import { CalendarMonth, LocationOn, Group } from "@mui/icons-material";
+import {  LocationOn, Group } from "@mui/icons-material";
 import { useActivities } from "../../../lib/hooks/useActivities";
 import { Link } from "react-router";
+import { formatDate } from "../../../lib/util/util";
 
 type Props = {
   activity: Activity;
@@ -27,6 +28,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export default function ActivityCard({ activity }: Props) {
+  // 设置分类颜色
   const categoryColor =
     CATEGORY_COLORS[activity.category.toLowerCase()] ?? "#182a73";
 
@@ -117,13 +119,8 @@ export default function ActivityCard({ activity }: Props) {
           <Box
             sx={{ display: "flex", alignItems: "center", gap: 0.5, mt: 0.25 }}
           >
-            <CalendarMonth fontSize="small" sx={{ color: "text.secondary" }} />
             <Typography variant="body2" color="text.secondary">
-              {new Date(activity.date).toLocaleDateString("zh-CN", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+             {formatDate(activity.date)}
             </Typography>
           </Box>
         </Box>

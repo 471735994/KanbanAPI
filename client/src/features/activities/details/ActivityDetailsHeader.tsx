@@ -1,11 +1,15 @@
 import { Card, Badge, CardMedia, Box, Typography, Button } from "@mui/material";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
+import { useActivities } from "../../../lib/hooks/useActivities";
 
 export default function ActivityDetailsHeader() {
   const isCancelled = false;
   const isHost = true;
   const isGoing = true;
   const loading = false;
+  const { id } = useParams();
+  const { activity } = useActivities(id);
+  if (!activity) return <Typography>Loading...</Typography>;
 
   return (
     <Card
@@ -48,7 +52,7 @@ export default function ActivityDetailsHeader() {
         {/* Text Section */}
         <Box>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            Activity title goes here
+            {activity.title}
           </Typography>
           <Typography variant="subtitle1">1 Jan 2025 at 1:40pm</Typography>
           <Typography variant="subtitle2">
