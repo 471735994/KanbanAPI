@@ -1,5 +1,7 @@
 using Application.Activities.Queries;
+using Application.Activities.Validators;
 using Application.Core;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -14,8 +16,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 builder.Services.AddCors();
 
-builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>());
-builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfiles));//添加AutoMapper
+builder.Services.AddMediatR(x =>
+    x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>()
+);
+builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfiles)); //添加AutoMapper
+builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
 
 // builder.Services.AddEndpointsApiExplorer();
 // builder.Services.AddSwaggerGen();

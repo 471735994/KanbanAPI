@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.Activities.DTOs;
 using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -20,12 +21,18 @@ namespace Application.Activities.Queries.Commands
         }
 
         // 定义处理器
-        public class Handler(AppDbContext context, IMapper mapper)
+        public class Handler(AppDbContext context, IMapper mapper, IValidator<Command> validator)
             : IRequestHandler<Command, string>
         {
             // 处理命令
             public async Task<string> Handle(Command request, CancellationToken cancellationToken)
             {
+                // 验证请求
+                var validationResult = await validator.ValidateAsync(request, cancellationToken);
+                if (!validationResult.IsValid)
+                {
+                    throw new ValidationException(validationResult.Errors);
+                }
                 // 创建活动
                 var activity = mapper.Map<Activity>(request.ActivityDto); // 获取活动
 
