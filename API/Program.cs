@@ -1,3 +1,4 @@
+using API.Middleware;
 using Application.Activities.Queries;
 using Application.Activities.Validators;
 using Application.Core;
@@ -14,33 +15,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddCors();
+builder.Services.AddCors();//跨域
 
 builder.Services.AddMediatR(x =>
-    x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>()
-);
+{
+    x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>();//注册MediatR
+    x.AddOpenBehavior(typeof(ValidationBehavior<,>));//添加验证行为
+});
+
+
 builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfiles)); //添加AutoMapper
-builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
-
-// builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
-
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-//builder.Services.AddOpenApi();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();//添加FluentValidation
+builder.Services.AddTransient<ExceptionMiddleware>();//添加异常处理中间件
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-//     //app.MapOpenApi();
-// }
-
-// app.UseHttpsRedirection();
-
-// app.UseAuthorization();
+app.UseMiddleware<ExceptionMiddleware>();//使用异常处理中间件
 app.UseCors(x =>
     x.AllowAnyMethod()
         .AllowAnyHeader()
