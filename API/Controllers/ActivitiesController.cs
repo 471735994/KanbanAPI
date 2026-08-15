@@ -1,4 +1,5 @@
 using Application.Activities.Commands;
+using Application.Activities.DTOs;
 using Application.Activities.Queries;
 using Application.Activities.Queries.Commands;
 using Domain;
@@ -24,9 +25,9 @@ public class ActivitiesController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<ActionResult<string>> CreateActivity(Activity activity)
+    public async Task<ActionResult<string>> CreateActivity(CreateActivityDto activity)
     {
-        var command = new CreateActivity.Command { Activity = activity };
+        var command = new CreateActivity.Command { ActivityDto = activity };
         var activityId = await Mediator.Send(command);
         return Ok(activityId);
     }
