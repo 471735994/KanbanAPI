@@ -2,6 +2,7 @@ using Application.Activities.Commands;
 using Application.Activities.DTOs;
 using Application.Activities.Queries;
 using Application.Activities.Queries.Commands;
+using Application.Core;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,10 +19,10 @@ public class ActivitiesController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<Activity>> GetActivityDetail(string id)
     {
-        var activity = await Mediator.Send(new GetActivityDetails.Query { Id = id });
-        if (activity == null)
-            return NotFound();
-        return activity;
+        // throw new Exception("Sever test error");
+
+        var result = await Mediator.Send(new GetActivityDetails.Query { Id = id });
+        return HandleResult(result);
     }
 
     [HttpPost]
@@ -29,22 +30,22 @@ public class ActivitiesController : BaseApiController
     {
         var command = new CreateActivity.Command { ActivityDto = activity };
         var activityId = await Mediator.Send(command);
-        return Ok(activityId);
+        return HandleResult(activityId);
     }
 
     [HttpPut]
     public async Task<ActionResult> EditActivity(Activity activity)
     {
         var command = new EditActivity.Command { Activity = activity };
-        await Mediator.Send(command);
-        return NoContent();
+        var result = await Mediator.Send(command);
+        return HandleResult(result);
     }
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteActivity(string id)
     {
         var command = new DeleteActivity.Command { Id = id };
-        await Mediator.Send(command);
-        return NoContent();
+        var result = await Mediator.Send(command);
+        return HandleResult(result);
     }
 }
