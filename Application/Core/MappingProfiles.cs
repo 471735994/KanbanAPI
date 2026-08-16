@@ -16,6 +16,8 @@ namespace Application.Core
             CreateMap<Activity, Activity>().ForMember(dest => dest.Id, opt => opt.Ignore());
             // 创建活动 DTO 映射到 Activity 实体
             CreateMap<CreateActivityDto, Activity>();
+            // 编辑活动 DTO 映射到 Activity 实体
+            CreateMap<EditActivityDto, Activity>();
         }
     }
 }

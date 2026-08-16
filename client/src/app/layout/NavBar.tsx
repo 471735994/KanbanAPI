@@ -57,6 +57,8 @@ export default function NavBar() {
             >
               <MenuItemLink to="/activities">Activites</MenuItemLink>
               <MenuItemLink to="/createActivity">Create Activity</MenuItemLink>
+              <MenuItemLink to="/errors">Errors</MenuItemLink>
+
             </MenuList>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
               <Button size="large" variant="contained" color="warning">

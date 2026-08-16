@@ -5,5 +5,8 @@ using System.Threading.Tasks;
 
 namespace Application.Activities.DTOs
 {
-    public class CreateActivityDto : BaseActivityDto { }
+    public class EditActivityDto : BaseActivityDto
+    {
+        public string Id { get; set; } = "";
+    }
 }

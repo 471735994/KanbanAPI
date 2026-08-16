@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Activities.DTOs;
 using Application.Core;
 using AutoMapper;
 using Domain;
@@ -15,7 +16,7 @@ namespace Application.Activities.Commands
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public required Activity Activity { get; set; }
+            public required EditActivityDto ActivityDto { get; set; }
         }
 
         public class Handler(AppDbContext context, IMapper mapper)
@@ -27,7 +28,7 @@ namespace Application.Activities.Commands
             )
             {
                 var activity = await context.Activities.FindAsync(
-                    new object[] { request.Activity.Id },
+                    new object[] { request.ActivityDto.Id },
                     cancellationToken
                 );
                 if (activity == null)
@@ -35,7 +36,7 @@ namespace Application.Activities.Commands
                     return Result<Unit>.Failure("Activity not found", 404);
                 }
 
-                mapper.Map(request.Activity, activity);
+                mapper.Map(request.ActivityDto, activity);
 
                 var result = await context.SaveChangesAsync(cancellationToken) > 0;
                 if (!result)
