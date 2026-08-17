@@ -18,6 +18,7 @@ export default function TestErrors() {
       else await agent.get(path);
     },
     onError: (err) => {
+      console.log(err);
       if (Array.isArray(err)) {
         setValidationErrors(err);
       } else {
@@ -51,6 +52,13 @@ export default function TestErrors() {
           Unauthorised
         </Button>
       </ButtonGroup>
+      {validationErrors.length > 0 && (
+        <ul style={{ color: "red" }}>
+          {validationErrors.map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }
