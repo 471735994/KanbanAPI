@@ -4,7 +4,6 @@ import {
   CheckCircle,
   Close,
   EditNote,
-  LocationOn,
   Place,
 } from "@mui/icons-material";
 import {
@@ -21,9 +20,26 @@ import {
 } from "@mui/material";
 import { useActivities } from "../../../lib/hooks/useActivities";
 import { useNavigate, useParams } from "react-router";
+import { useForm, type FieldValues } from "react-hook-form";
+import { useEffect } from "react";
+import {
+  activitySchema,
+  type ActivitySchema,
+} from "../../../lib/schemas/activitySchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import TextInput from "../../../app/shared/components/TextInput";
 
 export default function ActivityForm() {
-  
+  const {
+    register,
+    reset,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<ActivitySchema>({
+    mode: "onTouched",
+    resolver: zodResolver(activitySchema),
+  });
 
   const navigate = useNavigate();
 
@@ -31,30 +47,39 @@ export default function ActivityForm() {
   const { updateActivity, createActivity, activity, isLoadingActivity } =
     useActivities(id);
 
+  useEffect(() => {
+    if (activity) reset(activity);
+  }, [activity, reset]);
+
   if (isLoadingActivity) return <Typography>Loading...</Typography>;
 
   const isEditing = activity ? true : false;
-  // 提交表单
-  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault(); // 阻止表单默认提交行为
-    const formData = new FormData(event.currentTarget); // 获取表单数据
-    const data: { [key: string]: FormDataEntryValue } = {}; // 存储表单数据
-    // 遍历表单数据
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
-    if (activity) {
-      data.id = activity.id;
-      await updateActivity.mutateAsync(data as unknown as Activity); // 提交表单数据
-      navigate(`/activities/${activity.id}`);
-    } else {
-      await createActivity.mutateAsync(data as unknown as Activity, {
-        onSuccess: (id: string) => {
-          navigate(`/activities/${id}`);
-        },
-      });
-    }
+
+  const onSubmit = (data: FieldValues) => {
+    console.log(data);
   };
+
+  // // 提交表单
+  // const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
+  //   event.preventDefault(); // 阻止表单默认提交行为
+  //   const formData = new FormData(event.currentTarget); // 获取表单数据
+  //   const data: { [key: string]: FormDataEntryValue } = {}; // 存储表单数据
+  //   // 遍历表单数据
+  //   formData.forEach((value, key) => {
+  //     data[key] = value;
+  //   });
+  //   if (activity) {
+  //     data.id = activity.id;
+  //     await updateActivity.mutateAsync(data as unknown as Activity); // 提交表单数据
+  //     navigate(`/activities/${activity.id}`);
+  //   } else {
+  //     await createActivity.mutateAsync(data as unknown as Activity, {
+  //       onSuccess: (id: string) => {
+  //         navigate(`/activities/${id}`);
+  //       },
+  //     });
+  //   }
+  // };
 
   return (
     <Paper elevation={3} sx={{ borderRadius: 4, overflow: "hidden" }}>
@@ -84,15 +109,17 @@ export default function ActivityForm() {
 
         <Divider sx={{ my: 3 }} />
 
-        <Box component="form" noValidate onSubmit={handleSubmit}>
+        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2.5}>
             <Grid size={12}>
               <TextField
-                name="title"
+                {...register("title")}
                 fullWidth
                 label="Title"
                 placeholder="e.g. Mountain Hiking Trip"
                 defaultValue={activity?.title}
+                error={!!errors.title}
+                helperText={errors.title?.message}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -106,10 +133,12 @@ export default function ActivityForm() {
             <Grid size={12}>
               <TextField
                 fullWidth
-                name="description"
+                {...register("description")}
                 label="Description"
                 placeholder="Tell us more about this activity..."
                 defaultValue={activity?.description}
+                error={!!errors.description}
+                helperText={errors.description?.message}
                 multiline
                 rows={4}
                 slotProps={{
@@ -128,10 +157,12 @@ export default function ActivityForm() {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
-                name="category"
+                {...register("category")}
                 label="Category"
                 placeholder="e.g. Music, Sports"
                 defaultValue={activity?.category}
+                error={!!errors.category}
+                helperText={errors.category?.message}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -145,7 +176,7 @@ export default function ActivityForm() {
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
-                name="date"
+                {...register("date")}
                 label="Date"
                 type="date"
                 defaultValue={
@@ -153,6 +184,8 @@ export default function ActivityForm() {
                     ? new Date(activity.date).toISOString().split("T")[0]
                     : new Date().toISOString().split("T")[0]
                 }
+                error={!!errors.date}
+                helperText={errors.date?.message}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -166,12 +199,14 @@ export default function ActivityForm() {
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
+              {/* <TextField
                 fullWidth
-                name="city"
+                {...register("city")}
                 label="City"
                 placeholder="e.g. Beijing"
                 defaultValue={activity?.city}
+                error={!!errors.city}
+                helperText={errors.city?.message}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -181,16 +216,19 @@ export default function ActivityForm() {
                     ),
                   },
                 }}
-              />
+              /> */}
+              <TextInput label="City" name="city" control={control} />
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField
                 fullWidth
-                name="venue"
+                {...register("venue")}
                 label="Venue"
                 placeholder="e.g. Olympic Park"
                 defaultValue={activity?.venue}
+                error={!!errors.venue}
+                helperText={errors.venue?.message}
                 slotProps={{
                   input: {
                     startAdornment: (
