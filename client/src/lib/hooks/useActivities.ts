@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
+import type { Activity } from "../types";
 
 export const useActivities = (id?: string) => {
   //react query客户端实例，通过它可以在后续操作中让某个缓存失效，从而触发重新请求数据。

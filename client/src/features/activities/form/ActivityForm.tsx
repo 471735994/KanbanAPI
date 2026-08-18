@@ -1,10 +1,8 @@
 import {
   AddCircleOutlined,
-  CalendarMonth,
   CheckCircle,
   Close,
   EditNote,
-  Place,
 } from "@mui/icons-material";
 import {
   Avatar,
@@ -27,7 +25,10 @@ import {
   type ActivitySchema,
 } from "../../../lib/schemas/activitySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import TextInput from "../../../app/shared/components/TextInput";
+import SelectInput from "../../../app/shared/components/SelectInput";
+import { categoryOptions } from "./categoryOptions";
+import DateTimeInput from "../../../app/shared/components/DateTimeInput";
+import LocationInput from "../../../app/shared/components/LocationInput";
 
 export default function ActivityForm() {
   const {
@@ -155,69 +156,24 @@ export default function ActivityForm() {
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                {...register("category")}
+              <SelectInput
+                items={categoryOptions}
                 label="Category"
-                placeholder="e.g. Music, Sports"
-                defaultValue={activity?.category}
-                error={!!errors.category}
-                helperText={errors.category?.message}
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start"></InputAdornment>
-                    ),
-                  },
-                }}
-              />
+                control={control}
+                name="category"
+              ></SelectInput>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                {...register("date")}
-                label="Date"
-                type="date"
-                defaultValue={
-                  activity?.date
-                    ? new Date(activity.date).toISOString().split("T")[0]
-                    : new Date().toISOString().split("T")[0]
-                }
-                error={!!errors.date}
-                helperText={errors.date?.message}
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <CalendarMonth color="action" />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              />
+              <DateTimeInput
+                name="date"
+                control={control}
+              ></DateTimeInput>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              {/* <TextField
-                fullWidth
-                {...register("city")}
-                label="City"
-                placeholder="e.g. Beijing"
-                defaultValue={activity?.city}
-                error={!!errors.city}
-                helperText={errors.city?.message}
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LocationOn color="action" />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              /> */}
-              <TextInput label="City" name="city" control={control} />
+              <LocationInput control={control} label="Enter the location" name="location"></LocationInput>
+              {/* <TextInput label="City" name="city" control={control} />
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
@@ -238,7 +194,7 @@ export default function ActivityForm() {
                     ),
                   },
                 }}
-              />
+              /> */}
             </Grid>
           </Grid>
 

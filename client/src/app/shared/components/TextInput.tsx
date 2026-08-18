@@ -17,7 +17,6 @@ export default function TextInput<T extends FieldValues>(props: Props<T>) {
       helperText={fieldState.error?.message}
       variant="outlined"
       fullWidth
-      margin="normal"
       onChange={(e) => field.onChange(e.target.value)}
       value={field.value ?? ""}
     ></TextField>
