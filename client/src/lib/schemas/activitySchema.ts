@@ -7,10 +7,14 @@ export const activitySchema = z.object({
   title: requiredString("Title"),
   description: requiredString("Description"),
   category: requiredString("Category"),
-  date: z.coerce.date({ message: "Date is required" }),
+  date: z.coerce
+    .date({ message: "Date is required" })
+    .refine((date) => date > new Date(), {
+      message: "Date must be in the future",
+    }),
   location: z.object({
     venue: requiredString("Venue"),
-    city: z.string().optional(),
+    city: requiredString("City"),
     latitude: z.coerce.number(),
     longitude: z.coerce.number(),
   }),

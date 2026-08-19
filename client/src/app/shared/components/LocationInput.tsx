@@ -62,11 +62,12 @@ export default function LocationInput<T extends FieldValues>(props: Props<T>) {
     const city =
       location.address?.city ||
       location.address?.town ||
-      location.address?.village;
+      location.address?.village||
+      location.address?.county ;
     const venue = location.display_name;
     const latitude = location.lat;
     const longitude = location.lon;
-    field.onChange({ city, venue, latitude, longitude });
+    field.onChange({ city, venue, latitude, longitude });//将选中的位置信息传给表单
     setSuggestions([]);
   };
 

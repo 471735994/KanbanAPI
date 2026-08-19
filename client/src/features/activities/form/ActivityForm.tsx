@@ -38,6 +38,17 @@ export default function ActivityForm() {
     control,
     formState: { errors },
   } = useForm<ActivitySchema>({
+    defaultValues: {
+      title: "",
+      description: "",
+      category: "",
+      location: {
+        venue: "",
+        city: "",
+        latitude: 0,
+        longitude: 0,
+      },
+    },
     mode: "onTouched",
     resolver: zodResolver(activitySchema),
   });
@@ -48,8 +59,16 @@ export default function ActivityForm() {
   const { updateActivity, createActivity, activity, isLoadingActivity } =
     useActivities(id);
 
+  // 重置表单数据：当 activity 变化时，重置表单
   useEffect(() => {
-    if (activity) reset(activity);
+    if (activity) {
+      const { city, venue, latitude, longitude, ...activityFields } = activity;
+
+      reset({
+        ...activityFields,
+        location: { city, venue, latitude, longitude },
+      });
+    }
   }, [activity, reset]);
 
   if (isLoadingActivity) return <Typography>Loading...</Typography>;
@@ -57,30 +76,30 @@ export default function ActivityForm() {
   const isEditing = activity ? true : false;
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
+    const { location, ...rest } = data;
+    const activityData = { ...rest, ...location };
+    console.log(activityData);
+    try {
+      if (activity) {
+        updateActivity.mutate(
+          { ...activity, ...activityData },
+          {
+            onSuccess: () => navigate(`/activities/${activity.id}`),
+          },
+        );
+      } else {
+        createActivity.mutate(
+          { ...activityData },
+          {
+            onSuccess: (id) => navigate(`/activities/${id}`),
+          },
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      navigate("/activities");
+    }
   };
-
-  // // 提交表单
-  // const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
-  //   event.preventDefault(); // 阻止表单默认提交行为
-  //   const formData = new FormData(event.currentTarget); // 获取表单数据
-  //   const data: { [key: string]: FormDataEntryValue } = {}; // 存储表单数据
-  //   // 遍历表单数据
-  //   formData.forEach((value, key) => {
-  //     data[key] = value;
-  //   });
-  //   if (activity) {
-  //     data.id = activity.id;
-  //     await updateActivity.mutateAsync(data as unknown as Activity); // 提交表单数据
-  //     navigate(`/activities/${activity.id}`);
-  //   } else {
-  //     await createActivity.mutateAsync(data as unknown as Activity, {
-  //       onSuccess: (id: string) => {
-  //         navigate(`/activities/${id}`);
-  //       },
-  //     });
-  //   }
-  // };
 
   return (
     <Paper elevation={3} sx={{ borderRadius: 4, overflow: "hidden" }}>
@@ -165,36 +184,15 @@ export default function ActivityForm() {
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <DateTimeInput
-                name="date"
+              <DateTimeInput name="date" control={control}></DateTimeInput>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+              <LocationInput
                 control={control}
-              ></DateTimeInput>
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 6 }}>
-              <LocationInput control={control} label="Enter the location" name="location"></LocationInput>
-              {/* <TextInput label="City" name="city" control={control} />
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 6 }}>
-              <TextField
-                fullWidth
-                {...register("venue")}
-                label="Venue"
-                placeholder="e.g. Olympic Park"
-                defaultValue={activity?.venue}
-                error={!!errors.venue}
-                helperText={errors.venue?.message}
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Place color="action" />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              /> */}
+                label="Enter the location"
+                name="location"
+              ></LocationInput>
             </Grid>
           </Grid>
 

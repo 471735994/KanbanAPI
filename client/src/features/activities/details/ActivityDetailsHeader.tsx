@@ -1,5 +1,5 @@
 import { Card, Badge, CardMedia, Box, Typography, Button } from "@mui/material";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { useActivities } from "../../../lib/hooks/useActivities";
 
 export default function ActivityDetailsHeader() {
@@ -9,6 +9,7 @@ export default function ActivityDetailsHeader() {
   const loading = false;
   const { id } = useParams();
   const { activity } = useActivities(id);
+  const navigate = useNavigate();
   if (!activity) return <Typography>Loading...</Typography>;
 
   return (
@@ -73,7 +74,10 @@ export default function ActivityDetailsHeader() {
               <Button
                 variant="contained"
                 color={isCancelled ? "success" : "error"}
-                onClick={() => {}}
+                onClick={() => {
+                  navigate("/activities");
+                }}
+                disabled={loading}
               >
                 {isCancelled ? "Re-activate Activity" : "Cancel Activity"}
               </Button>
