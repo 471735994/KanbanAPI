@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
 {
-    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();//创建授权策略,要求用户已认证
+    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build(); //创建授权策略,要求用户已认证
     opt.Filters.Add(new AuthorizeFilter(policy)); //添加授权过滤器,要求所有控制器都需要认证
 });
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -46,8 +46,9 @@ builder
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>(); //使用异常处理中间件
 app.UseCors(x =>
-    x.AllowAnyMethod()
-        .AllowAnyHeader()
+    x.AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials() //允许携带凭证
         .WithOrigins("http://localhost:3000", "https://localhost:3000")
 );
 app.UseAuthentication(); //使用认证

@@ -10,6 +10,7 @@ import { router } from "../../app/router/Routes";
 
 const agent = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true, // 允许携带cookie
 });
 
 // 为每个请求添加延迟
