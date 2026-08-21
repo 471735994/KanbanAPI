@@ -8,10 +8,12 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import MenuItemLink from "../shared/components/MenuItemLink";
+import { useAccount } from "../../lib/hooks/useAccount";
 
 export default function NavBar() {
+  const { currentUser } = useAccount();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -58,15 +60,27 @@ export default function NavBar() {
               <MenuItemLink to="/activities">Activites</MenuItemLink>
               <MenuItemLink to="/createActivity">Create Activity</MenuItemLink>
               <MenuItemLink to="/errors">Errors</MenuItemLink>
-
             </MenuList>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-              <Button size="large" variant="contained" color="warning">
-                Login
-              </Button>
-              <Button size="large" variant="contained" color="primary">
-                Register
-              </Button>
+              {currentUser ? (
+                <Typography>Welcome {currentUser.displayName}</Typography>
+              ) : (
+                <>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    color="warning"
+                    component={Link}
+                    to="/login"
+                  >
+                    Login
+                  </Button>
+                  <Button size="large" variant="contained" color="primary">
+                    Register
+                  </Button>
+                </>
+              )}
+
               <Button
                 size="large"
                 variant="contained"

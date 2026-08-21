@@ -4,6 +4,7 @@ using Application.Activities.Validators;
 using Application.Core;
 using Domain;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -41,6 +42,23 @@ builder
     })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>(); //添加Identity
+
+// 开发环境下，前端(http://localhost:3000)与API(https://localhost:5001)协议不同属于跨站，
+// 默认 SameSite=Lax 的认证Cookie不会被浏览器在跨站XHR请求中携带，
+// 导致登录后 /account/user-info 拿不到用户信息。
+// 因此开发环境将 SameSite 设为 None（配合 HTTPS 的 Secure 属性），
+// 生产环境请保持默认 Lax，并使用同源部署或代理。
+// if (builder.Environment.IsDevelopment())
+// {
+//     builder.Services.Configure<CookieAuthenticationOptions>(
+//         IdentityConstants.ApplicationScheme,
+//         o =>
+//         {
+//             o.Cookie.SameSite = SameSiteMode.None;
+//             o.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+//         }
+//     );
+// }
 
 // 构建应用
 var app = builder.Build();

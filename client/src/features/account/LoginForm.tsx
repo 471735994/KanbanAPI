@@ -7,8 +7,7 @@ import { LockOpen } from "@mui/icons-material";
 import TextInput from "../../app/shared/components/TextInput";
 
 export default function LoginForm() {
-  const loginUser = useAccount(); // 使用useAccount hook获取登录方法
-
+  const { loginUser } = useAccount(); // 使用useAccount hook获取登录方法
   // 使用useForm hook创建表单
   const {
     control,
@@ -21,7 +20,7 @@ export default function LoginForm() {
 
   // 提交表单
   const onSubmit = async (data: LoginSchema) => {
-    await loginUser.mutateAsync(data);
+    await loginUser.mutateAsync(data); // 调用登录方法
   };
 
   return (

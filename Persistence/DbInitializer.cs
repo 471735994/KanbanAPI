@@ -15,21 +15,21 @@ public class DbInitializer
                 new()
                 {
                     DisplayName = "Bob",
-                    UserName = "bob",
+                    UserName = "bob@test.com",
                     Email = "bob@test.com",
                     Bio = "Bob is a test user",
                 },
                 new()
                 {
                     DisplayName = "Jane",
-                    UserName = "jane",
+                    UserName = "jane@test.com",
                     Email = "jane@test.com",
                     Bio = "Jane is a test user",
                 },
                 new()
                 {
                     DisplayName = "Tom",
-                    UserName = "tom",
+                    UserName = "tom@test.com",
                     Email = "tom@test.com",
                     Bio = "Tom is a test user",
                 },
