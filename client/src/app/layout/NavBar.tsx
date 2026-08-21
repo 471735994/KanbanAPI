@@ -11,6 +11,7 @@ import {
 import { Link, NavLink } from "react-router";
 import MenuItemLink from "../shared/components/MenuItemLink";
 import { useAccount } from "../../lib/hooks/useAccount";
+import UserMenu from "./UserMenu";
 
 export default function NavBar() {
   const { currentUser } = useAccount();
@@ -63,7 +64,7 @@ export default function NavBar() {
             </MenuList>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
               {currentUser ? (
-                <Typography>Welcome {currentUser.displayName}</Typography>
+                <UserMenu />
               ) : (
                 <>
                   <Button
@@ -80,15 +81,6 @@ export default function NavBar() {
                   </Button>
                 </>
               )}
-
-              <Button
-                size="large"
-                variant="contained"
-                color="primary"
-                onClick={() => {}}
-              >
-                User Menu
-              </Button>
             </Box>
           </Toolbar>
         </Container>

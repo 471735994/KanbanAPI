@@ -5,9 +5,12 @@ import { useForm } from "react-hook-form";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { LockOpen } from "@mui/icons-material";
 import TextInput from "../../app/shared/components/TextInput";
+import { useLocation, useNavigate } from "react-router";
 
 export default function LoginForm() {
   const { loginUser } = useAccount(); // 使用useAccount hook获取登录方法
+  const navigate = useNavigate();
+  const location = useLocation();
   // 使用useForm hook创建表单
   const {
     control,
@@ -20,7 +23,11 @@ export default function LoginForm() {
 
   // 提交表单
   const onSubmit = async (data: LoginSchema) => {
-    await loginUser.mutateAsync(data); // 调用登录方法
+    await loginUser.mutateAsync(data, {
+      onSuccess: () => {
+        navigate(location.state?.from || "/activities");
+      },
+    }); // 调用登录方法
   };
 
   return (

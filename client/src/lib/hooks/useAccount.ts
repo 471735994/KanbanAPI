@@ -28,7 +28,7 @@ export const useAccount = () => {
 
   const logoutUser = useMutation({
     mutationFn: async () => {
-      await agent.post("account/logout");
+      await agent.post("/account/logout");
     },
     onSuccess: async () => {
       queryClient.removeQueries({ queryKey: ["currentUser"] });
@@ -36,7 +36,7 @@ export const useAccount = () => {
     },
   });
 
-  const { data: currentUser } = useQuery({
+  const { data: currentUser, isLoading: loadingUserInfo } = useQuery({
     queryKey: ["currentUser"],
     queryFn: async () => {
       const { data } = await agent.get<User>("/account/user-info");
@@ -44,5 +44,5 @@ export const useAccount = () => {
     },
     enabled: !queryClient.getQueryData(["currentUser"]), // 如果已经有缓存数据，就不需要再请求了
   });
-  return { loginUser, currentUser, logoutUser };
+  return { loginUser, currentUser, logoutUser, loadingUserInfo };
 };
