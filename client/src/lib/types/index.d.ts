@@ -1,4 +1,4 @@
-type Activity = {
+export type Activity = {
   id: string;
   title: string;
   date: Date;
@@ -11,7 +11,7 @@ type Activity = {
   longitude: number;
 };
 
-type User = {
+export type User = {
   id: string;
   username: string;
   email: string;
@@ -19,7 +19,7 @@ type User = {
   imageUrl?: string;
 };
 
-type LocationIQSuggestion = {
+export type LocationIQSuggestion = {
   place_id: string;
   osm_id: string;
   osm_type: string;
@@ -35,7 +35,7 @@ type LocationIQSuggestion = {
   address: LocationIQAddress;
 };
 
-type LocationIQAddress = {
+export type LocationIQAddress = {
   name: string;
   road?: string;
   neighbourhood?: string;
@@ -49,3 +49,8 @@ type LocationIQAddress = {
   country: string;
   country_code: string;
 };
+
+declare global {
+  type Activity = import("./index").Activity;
+  type User = import("./index").User;
+}
