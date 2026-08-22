@@ -507,3 +507,6 @@ dist/
 # React
 .env
 .env.local
+# 忽略 mkcert 生成的证书
+*.pem
+*-key.pem   # 忽略所有以 -key.pem 结尾的文件
