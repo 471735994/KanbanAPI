@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { LoginSchema } from "../schemas/loginSchema";
 import agent from "../api/agent";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 export const useAccount = () => {
   // useQueryClient 用于获取全局的 QueryClient 实例，以便在登录成功后刷新用户数据。
@@ -26,6 +27,16 @@ export const useAccount = () => {
     },
   });
 
+  const registerUser = useMutation({
+    mutationFn: async (creds: LoginSchema) => {
+      await agent.post("/account/register", creds);
+    },
+    onSuccess: async () => {
+      toast.success("注册成功，请登录");
+      await navigate("/login");
+    },
+  });
+
   const logoutUser = useMutation({
     mutationFn: async () => {
       await agent.post("/account/logout");
@@ -44,5 +55,5 @@ export const useAccount = () => {
     },
     enabled: !queryClient.getQueryData(["currentUser"]), // 如果已经有缓存数据，就不需要再请求了
   });
-  return { loginUser, currentUser, logoutUser, loadingUserInfo };
+  return { loginUser, currentUser, logoutUser, loadingUserInfo, registerUser };
 };

@@ -6,28 +6,26 @@ import { Box, Button, Paper, Typography } from "@mui/material";
 import { LockOpen } from "@mui/icons-material";
 import TextInput from "../../app/shared/components/TextInput";
 import { Link, useLocation, useNavigate } from "react-router";
+import {
+  registerSchema,
+  type RegisterSchema,
+} from "../../lib/schemas/registerSchema";
 
-export default function LoginForm() {
-  const { loginUser } = useAccount(); // 使用useAccount hook获取登录方法
-  const navigate = useNavigate();
-  const location = useLocation();
+export default function RegisterForm() {
+  const { registerUser } = useAccount(); // 使用useAccount hook获取登录方法
   // 使用useForm hook创建表单
   const {
     control,
     handleSubmit,
     formState: { isValid, isSubmitting },
-  } = useForm<LoginSchema>({
+  } = useForm<RegisterSchema>({
     mode: "onTouched",
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(registerSchema),
   });
 
   // 提交表单
-  const onSubmit = async (data: LoginSchema) => {
-    await loginUser.mutateAsync(data, {
-      onSuccess: () => {
-        navigate(location.state?.from || "/activities");
-      },
-    }); // 调用登录方法
+  const onSubmit = async (data: RegisterSchema) => {
+    await registerUser.mutateAsync(data); // 调用登录方法
   };
 
   return (
@@ -71,9 +69,9 @@ export default function LoginForm() {
       >
         Login
       </Button>
-      <Typography sx={{textAlign:'center'}}>
+      <Typography sx={{ textAlign: "center" }}>
         Don't have an account?
-        <Typography sx={{ml:2}} component={Link} to='/register'>
+        <Typography sx={{ ml: 2 }} component={Link} to="/register">
           Sign up
         </Typography>
       </Typography>
